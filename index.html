@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+  <title>Ractive Basic Implementation</title>
+
+</head>
+
+<body>
+  <div class="container">
+    <div id="app"></div>
+
+  </div>
+  <script id="template" type="text/ractive">
+    {{#user}}
+      <div class="row">
+        <div class="col-md-4 col-sm-4">
+          <img src="{{avatar}}" alt="Profile Image"/>
+        </div>
+        <div class="col-md-8 col-sm-8">
+          <h1>{{name}}</h1>
+          {{#user.shares}}
+            <span class="btn btn-sm btn-success">{{posts}} Posts</span>
+            <span class="btn btn-sm btn-primary">{{photos}} Photos</span>
+            <span class="btn btn-sm btn-warning">{{videos}} Videos</span>
+          {{/user.shares}}
+          <br/><br/>
+          <ul class="list-group">
+            {{#age}}
+            <li class="list-group-item"> Age: {{age}}</li>
+             {{/age}}
+            {{#user.location}}
+              <li class="list-group-item"> Location: {{city}},
+              {{state}}</li>
+            {{/user.location}}
+
+          </ul>
+          <br/>
+          <h3>Bio :</h3>
+           <p>{{{bio}}}</p>
+           <h4>List of Books</h4>
+           <ul>
+             {{#user.bookList}}
+             <li>{{title}}, {{category}}</li>
+             {{/user.bookList}}
+            {{^user.bookList}}
+             <li>No books are in the list.</li>
+             {{/user.bookList}}
+           </ul>
+        </div>
+      </div> 
+    {{/user}}
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+  <script>
+    var ractive = new Ractive({
+      el: "#app",
+      template: "#template",
+      data: {
+        user: {
+          name: "Denith Perera",
+          age: 9,
+          bio:
+            "Lorem ipsum dolor sit, amet consectetur adipisicing elit. In debitis ut tempora eaque non, culpa earum dolorem, alias provident aliquam sunt asperiores ea ad <b> similique</b> voluptatem nihil distinctio."
+          ,
+          location: {
+            city: "San Rafael",
+            state: "California"
+          },
+          shares: {
+            posts: 500,
+            photos: 250,
+            videos: 50
+          },
+          bookList: [
+            { title: 'Javascript Design Patterns', category: 'Tech' },
+            { title: 'Adavanced Node JS', category: 'Tech' },
+            { title: 'Quick & Healthy Dinner', category: 'Food' }
+          ]
+
+        },
+        avatar: "http://i.pravatar.cc/200",
+      }
+    });
+  </script>
+</body>
+
+</html>
