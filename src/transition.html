@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Ractive Transition....</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script id="template" type="text/ractive">
+      <div intro='fade:{"delay":500,"duration":500}'>content</div>
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ractive-transitions-fade@0.3.1/dist/ractive-transitions-fade.umd.min.js"></script>
+
+  <script>
+    var ractive = new Ractive({
+      el: "#app",
+      template: "#template",
+
+      data: {}
+    });
+  </script>
+</body>
+
+</html>

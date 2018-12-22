@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Ractive Observers ....</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script id="template" type="text/ractive">
+      <p>
+        Cart Total : $ {{cart.total}}
+      </p>
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+    <script>
+      var ractive = new Ractive({
+        el: "#app",
+        template: "#template",
+        data: {
+          cart: { total: 20 },
+          users: [
+            { userName: "dnperera", level: "operator", email: "dn@gmail.com" },
+            { userName: "james", level: "network", email: "james@yahoo,com" },
+            { userName: "dasithp", level: "student", email: "dasith@gmail.com" }
+          ]
+        },
+        observe: {
+          // Observe changes on the array
+          "users.*"(newVal) {
+            if (newVal.level === "operator") {
+              console.log("user name", newVal);
+            }
+          },
+          "cart.total"(newVal) {
+            updateDB(newVal);
+          }
+        },
+        computed: {
+          profile: {
+            get() {
+              return "Dayan Perera";
+            }
+          }
+        }
+      });
+
+      ractive.push("users", {
+        userName: "hasinip",
+        level: "manager",
+        email: "hasinip@gmail.com"
+      });
+
+      ractive.set("cart.total", 120);
+
+      function updateDB(newVal) {
+        console.log("DB updated");
+        console.log("new Value --", newVal);
+      }
+      console.log("get profile", ractive.get("profile"));
+      // var cartObserver = ractive.observe('cart.total', function (newVal, oldVal, keypath) {
+      //   console.log('old value', oldVal)
+      //   console.log('new value', newVal)
+      //   console.log('keypath', keypath)
+      // })
+      // ractive.set('cart.total', 50);
+
+      // //cancel Observer
+      // cartObserver.cancel();
+      // ractive.set('cart.total', 100);
+    </script>
+  </body>
+</html>

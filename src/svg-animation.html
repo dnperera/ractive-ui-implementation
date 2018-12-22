@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Ractive Animation</title>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script id="template" type="text/ractive">
+      <div
+        style="width:{{width}}px;height:{{height}}px;background-color:{{color}};opacity:{{opacity}}"
+      ></div>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+    <script>
+      var ractive = new Ractive({
+        el: "#app",
+        template: "#template",
+        data: {
+          width: 100,
+          height: 100,
+          color: "green",
+          opacity: 1
+        }
+      });
+      ractive
+        .animate("width", 600, {
+          easing: "easeOut",
+          duration: 3000
+        })
+        .then(function() {
+          ractive.animate("height", 600, {
+            easing: "easeOut",
+            duration: 3000
+          });
+        });
+    </script>
+  </body>
+</html>
