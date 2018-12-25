@@ -1,13 +1,14 @@
 module.exports = function() { return `
-<form>
+<form on-submit="addUser">
+
   <div class="form-group">
-    <input type="text" class="form-control" placeholder="Enter Your Name" />
+    <input type="text" class="form-control" placeholder="Enter Your Name" value={{name}} />
   </div>
   <div class="form-group">
-    <input type="email" class="form-control" placeholder="Enter email" />
+    <input type="email" class="form-control" placeholder="Enter email" value={{email}} />
   </div>
   <div class="form-group">
-    <input type="text" class="form-control" placeholder="Enter Your City" />
+    <input type="text" class="form-control" placeholder="Enter Your City" value={{city}} />
   </div>
   <input type="submit" class="btn btn-success" value="Submit" />
 </form>
@@ -24,16 +25,19 @@ module.exports = function() { return `
   </thead>
 
   <tbody>
+
+    {{#each users:i}}
     <tr>
-      <td>01</td>
-      <td>Denith Perera</td>
-      <td>denith@gmail.com</td>
-      <td>San Rafael</td>
+      <td>{{i+1}}</td>
+      <td>{{ name }}</td>
+      <td>{{ email }}</td>
+      <td>{{ city }}</td>
       <td>
-        <button class="btn btn-sm btn-primary">Edit</button>
-        <button class="btn btn-sm btn-danger">Delete</button>
+        <button class="btn btn-sm btn-primary" on-click="['editUser',i]">Edit</button>
+        <button class="btn btn-sm btn-danger" on-click="['deleteUser',i]">Delete</button>
       </td>
     </tr>
+    {{/each}}
   </tbody>
 </table>
 `; };
